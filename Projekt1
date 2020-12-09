@@ -1,0 +1,725 @@
+using System;
+using System.IO;
+
+namespace Projekt1_Balcerzak42624
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ConsoleKeyInfo mbWybranaFunkcjonalnosc;
+			ushort mbCount;
+			double mbSum;
+
+			Console.WriteLine("\n\n\t Program Kalkulator_Balcerzak_42624 " +
+							"umożliwia obliczanie wybranych wielkości matematycznych");
+			Console.WriteLine("\n\n\t Funkcjonalne menu programu: ");
+			Console.WriteLine("\n\n\t A. Obliczanie ceny jednostki paszy (in-line)");
+			Console.WriteLine("\t B. Obliczanie ceny jednostki paszy (method-call)");
+			Console.WriteLine("\t C. Obliczanie średniej harmonicznej (in-line)");
+			Console.WriteLine("\t D. Obliczanie średniej harmonicznej (method-call)");
+			Console.WriteLine("\t E. Obliczanie średniej geometrycznej (in-line)");
+			Console.WriteLine("\t F. Obliczanie średniej geometrycznej (method-call)");
+			Console.WriteLine("\t G. Obliczanie średniej kwadratowej (in-line)");
+			Console.WriteLine("\t H. Obliczanie średniej kwadratowej (method-call)");
+			Console.WriteLine("\t I. Obliczanie średniej potęgowej <średniej uogólnionej> (in-line)");
+			Console.WriteLine("\t J. Obliczanie średniej potęgowej <średniej uogólnionej> (method-call)");
+			Console.WriteLine("\t K. Obliczanie (konwersja) znakowego zapisu liczby całkowitej w systemie" +
+				" liczbowym \n\t\t o podanej (przez użytkownika programu) podstawie liczenia (in-line)");
+			Console.WriteLine("\t L. Obliczanie (konwersja) znakowego zapisu liczby całkowitej w systemie" +
+				" liczbowym \n\t\t o podanej (przez użytkownika programu) podstawie liczenia (method-call)");
+			Console.WriteLine("\t X. Zakończenie (wyjście z) programu");
+
+			Console.WriteLine("\n\n\t Naciśnij klawisz przypisany odpowiedniej " +
+							"funkcjonalności z której chcesz skorzystać: ");
+
+			mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+			switch (mbWybranaFunkcjonalnosc.Key)
+			{
+				case ConsoleKey.A:
+					Console.WriteLine("\n\t\t\tObliczanie ceny jednostki paszy złożonej (utworzonej, skomponowanej)");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					double mbWeight, mbPrice, mbPaszaCost;
+					
+					mbSum = 0.0D;
+					mbPaszaCost = 0.0D;
+
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						Console.WriteLine("\n\tPodaj ilość składników");
+						while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+						{
+							Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+							Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+						}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+						for (int mbI = 1; mbI <= mbCount; mbI++)
+						{
+
+							Console.Write("\n\tPodaj wagę(kg) dla składnika nr {0}: ", mbI);
+
+							while (!double.TryParse(Console.ReadLine(), out mbWeight))
+							{
+								Console.WriteLine("\n\n\tERROR: w zapisie masy składnika {0}-go wystąpił niedozwolony znak", mbI);
+								Console.Write("\n\tPodaj ponownie wagę(kg) dla {0}-go składnika: ", mbI);
+
+							}
+
+							Console.Write("\n\tPodaj cenę(zł) składnika nr {0}: ", mbI);
+
+							while (!double.TryParse(Console.ReadLine(), out mbPrice))
+							{
+								Console.WriteLine("\n\n\tERROR: w zapisie ceny składnika {0}-go wystąpił niedozwolony znak", mbI);
+								Console.Write("\n\tPodaj ponownie cenę(zł) dla {0}-go składnika: ", mbI);
+							}
+
+							Console.Write("\n\tSkładnik nr {0}, waga wynosi: " + mbWeight + "kg, a cena: " + mbPrice + "zł", mbI);
+
+							mbSum += mbPrice * mbWeight;
+
+							Console.WriteLine("\n\tObliczamy iloczyn wagi(m{0}) i ceny(c{0}): m{0}*c{0}=" + mbWeight*mbPrice,mbI);
+						}
+
+						Console.WriteLine("\n\tZe wzoru na średnią arytmetyczną obliczamy cenę jednostki paszy, \n\tgdzie licznik to suma składników(składnik=waga*cena)");
+						Console.WriteLine("\tSuma składników wynosi: " + mbSum);
+						Console.WriteLine("\n\tObliczamy cene jednostki paszy za pomocą ilorazu = suma składników/ilość składników");
+
+						mbPaszaCost = mbSum / mbCount;
+						Console.WriteLine("\n\n\tCena jednostki paszy wynosi: " + mbPaszaCost + " zł");
+					}
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						Console.WriteLine("\n\tPodaj ilość składników");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+						for (int mbI = 1; mbI <= mbCount; mbI++)
+						{
+							
+							Console.Write("\n\tPodaj wagę(kg) dla składnika nr {0}: ", mbI);
+
+							while (!double.TryParse(Console.ReadLine(), out mbWeight))
+							{
+								Console.WriteLine("\n\n\tERROR: w zapisie masy składnika {0}-go wystąpił niedozwolony znak", mbI);
+								Console.Write("\n\tPodaj ponownie wagę(kg) dla {0}-go składnika: ", mbI);
+
+							}
+
+							Console.Write("\n\tPodaj cenę(zł) składnika nr {0}: ", mbI);
+
+							while (!double.TryParse(Console.ReadLine(), out mbPrice))
+							{
+								Console.WriteLine("\n\n\tERROR: w zapisie ceny składnika {0}-go wystąpił niedozwolony znak", mbI);
+								Console.Write("\n\tPodaj ponownie cenę(zł) dla {0}-go składnika: ", mbI);
+							}
+
+							mbSum += mbPrice * mbWeight;
+						}
+
+						mbPaszaCost = mbSum / mbCount;
+						Console.WriteLine("\n\n\tCena jednostki paszy wynosi: " + mbPaszaCost + " zł");
+					}
+
+					break;
+
+				case ConsoleKey.B:
+					Console.WriteLine("\n\t\t\tObliczanie ceny jednostki paszy złożonej (utworzonej, skomponowanej)");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						Console.WriteLine("\n\tPodaj ilość składników");
+						while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+						{
+							Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+							Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+						}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+						mbCenaPaszy.mbPaszaPriceCalcualte(mbCount,"T");
+					}
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						Console.WriteLine("\n\tPodaj ilość składników");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+						mbCenaPaszy.mbPaszaPriceCalcualte(mbCount);
+
+					}
+
+					break;
+
+				case ConsoleKey.C:
+					Console.WriteLine("\n\t\t\tObliczanie średniej harmonicznej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+					double mbNumber;
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						String mbScheme;
+						mbScheme = "4/";
+						mbSum = 0.0D;
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią harmoniczną");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+							for (int mbI = 1; mbI <= mbCount; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej harmonicznej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+							
+							mbSum += 1 / mbNumber;
+
+								if (mbI == 1)
+								{
+									mbScheme += "[(1/" + mbNumber + ")";
+								}
+								else 
+								{
+									mbScheme += "+(1/" + mbNumber + ")";
+								}
+							}
+
+						mbSum = mbCount / mbSum;
+						Console.WriteLine("\n\n\tWzór na średnią harmoniczną: " + mbScheme + "]");
+						Console.WriteLine("\n\tŚrednia harmoniczna wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						mbSum = 0.0D;
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią harmoniczną");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+							for (int mbI = 1; mbI <= mbCount; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej harmonicznej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+
+								mbSum += 1/mbNumber;
+							}
+						mbSum = mbCount / mbSum;
+					
+						Console.WriteLine("\n\n\tŚrednia harmoniczna wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					break;
+
+				case ConsoleKey.D:
+					Console.WriteLine("\n\t\t\tObliczanie średniej harmonicznej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią harmoniczną");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrHarmo.mbSrHarmonicznaCalculate(mbCount, "T");
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią harmoniczną");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrHarmo.mbSrHarmonicznaCalculate(mbCount);
+					}
+
+					break;
+
+				case ConsoleKey.E:
+					Console.WriteLine("\n\t\t\tObliczanie średniej geometrycznej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						mbSum = 1.0D;
+						double mbC;
+						mbC = 0.0D;
+						String mbScheme;
+						mbScheme = "Pierwiastek ";
+
+						Math.Round(mbC, 0);
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią geometryczną");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbC);
+
+						mbScheme += mbC + "-go stopnia z ";
+
+							for (int mbI = 1; mbI <= mbC; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej geometrycznej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+
+							mbSum *= mbNumber;
+
+
+								if (mbI == 1)
+								{
+									mbScheme += mbNumber;
+								}
+								else
+								{
+									mbScheme += "*" + mbNumber;
+								}
+
+							
+							}
+
+						mbSum = Math.Pow(mbSum, (1 / mbC));
+						Console.WriteLine("\n\n\tWzór na średnią geometryczną to " + mbScheme);
+						Console.WriteLine("\n\tŚrednia geometryczna wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						mbSum = 1.0D;
+						double mbC;
+						mbC = 0.0D;
+						Math.Round(mbC,0);
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią geometryczną");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbC);
+
+						for (int mbI = 1; mbI <= mbC; mbI++)
+						{
+
+							Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej geometrycznej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+
+							mbSum *= mbNumber;
+						}
+						
+						mbSum = Math.Pow(mbSum,(1/mbC));
+						Console.WriteLine("\n\n\tŚrednia geometryczna wynosi: " + Math.Round(mbSum,2));
+					}
+
+					break;
+
+				case ConsoleKey.F:
+					Console.WriteLine("\n\t\t\tObliczanie średniej geometrycznej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						double mbC;
+						mbC = 0.0D;
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią geometryczną");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbC);
+
+						mbSrGeo.mbSrGeoCalculate(mbC, "T");
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						double mbC;
+						mbC = 0.0D;
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią geometryczną");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbC);
+
+						mbSrGeo.mbSrGeoCalculate(mbC);
+					}
+
+					break;
+
+				case ConsoleKey.G:
+					Console.WriteLine("\n\t\t\tObliczanie średniej kwadratowej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						mbSum = 0.0D;
+						String mbScheme;
+						mbScheme = "Pierwiastek kwadratowy z ";
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią kwadratową");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+							for (int mbI = 1; mbI <= mbCount; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej kwadratowej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+								
+								mbSum += Math.Pow(mbNumber, 2);
+
+									if (mbI == 1)
+									{
+										mbScheme += "(" + mbNumber + "^2";
+									}
+									else
+									{
+										mbScheme += "+" + mbNumber + "^2";
+									}
+							}
+
+						mbSum = Math.Pow(mbSum / mbCount, 0.5);
+
+						Console.WriteLine("\n\n\tWzór na średnią kwadratową to " + mbScheme + ")/" + mbCount);
+						Console.WriteLine("\n\tŚrednia kwadratowa wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						mbSum = 0.0D;
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią kwadratową");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba składników: " + mbCount);
+
+							for (int mbI = 1; mbI <= mbCount; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej kwadratowej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+								
+								mbSum += Math.Pow(mbNumber,2);
+							}
+
+						mbSum = Math.Pow(mbSum / mbCount, 0.5);
+
+						Console.WriteLine("\n\n\tŚrednia kwadratowa wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					break;
+
+				case ConsoleKey.H:
+					Console.WriteLine("\n\t\t\tObliczanie średniej kwadratowej");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią kwadratową");
+						while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+						{
+							Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+							Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+						}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrKwadrat.mbSrKw(mbCount,"T");
+
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią kwadratową");
+						while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+						{
+							Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+							Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+						}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrKwadrat.mbSrKw(mbCount);
+
+					}
+
+					break;
+
+				case ConsoleKey.I:
+					Console.WriteLine("\n\t\t\tObliczanie średniej potęgowej (uogólnionej)");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						double mbC, mbRow;
+						mbC = 0.0D;
+						mbSum = 0.0D;
+						Math.Round(mbC, 0);
+						String mbScheme;
+						mbScheme = "Pierwiastek ";
+
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią potęgową");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana ilość wyrazów: " + mbC);
+
+						Console.WriteLine("\n\tPodaj rząd dla którego chcesz obliczyć średnią potęgową");
+							while (!double.TryParse(Console.ReadLine(), out mbRow))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytany rząd: " + mbRow);
+
+						mbScheme += mbRow + "-go stopnia z ";
+
+							for (int mbI = 1; mbI <= mbC; mbI++)
+							{
+
+								Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej potęgowej: ", mbI);
+
+								while (!double.TryParse(Console.ReadLine(), out mbNumber))
+								{
+									Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+									Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+								}
+
+								mbSum += Math.Pow(mbNumber, mbRow);
+
+								if (mbI == 1)
+								{
+									mbScheme += "[(" + mbNumber + "^" + mbRow;
+								}
+								else
+								{
+									mbScheme += "+" + mbNumber + "^" + mbRow;
+								}
+							}
+
+						mbSum = Math.Pow(mbSum / mbC, (1 / mbRow));
+
+						Console.WriteLine("\n\n\tWzór na średnią potęgową to " + mbScheme + ")/" + mbC + "]");
+						Console.WriteLine("\n\n\tŚrednia potęgowa wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						double mbC, mbRow;
+						mbC = 0.0D;
+						mbSum = 0.0D;
+						Math.Round(mbC, 0);
+
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią potęgową");
+							while (!double.TryParse(Console.ReadLine(), out mbC))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana ilość wyrazów: " + mbC);
+
+						Console.WriteLine("\n\tPodaj rząd dla którego chcesz obliczyć średnią potęgową");
+							while (!double.TryParse(Console.ReadLine(), out mbRow))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytany rząd: " + mbRow);
+
+						for (int mbI = 1; mbI <= mbC; mbI++)
+						{
+
+							Console.Write("\n\tPodaj {0} liczbę do obliczenia średniej potęgowej: ", mbI);
+
+							while (!double.TryParse(Console.ReadLine(), out mbNumber))
+							{
+								Console.WriteLine("\n\n\tERROR: w zapisie {0} liczby wystąpił niedozwolony znak", mbI);
+								Console.Write("\n\tPodaj ponownie {0} liczbę: ", mbI);
+
+							}
+
+							mbSum += Math.Pow(mbNumber, mbRow);
+						}
+
+						mbSum = Math.Pow(mbSum / mbC, (1/mbRow));
+
+						Console.WriteLine("\n\n\tŚrednia potęgowa wynosi: " + Math.Round(mbSum, 2));
+					}
+
+					break;
+
+				case ConsoleKey.J:
+					Console.WriteLine("\n\t\t\tObliczanie średniej potęgowej (uogólnionej)");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią potęgową");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrPotęg.mbSrPot(mbCount, "T");
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+						Console.WriteLine("\n\tPodaj ilość wyrazów dla których chcesz wyliczyć średnią potęgową");
+							while (!ushort.TryParse(Console.ReadLine(), out mbCount))
+							{
+								Console.WriteLine("\tERROR: w zapisie liczności składników wystąpił niedozwolony znak");
+								Console.Write("\tPodaj ponownie liczność ciągu liczbowego: ");
+							}
+						Console.WriteLine("\n\tWczytana liczba wyrazów: " + mbCount);
+
+						mbSrPotęg.mbSrPot(mbCount);
+					}
+
+					break;
+
+				case ConsoleKey.K:
+					Console.WriteLine("\n\t\t\tObliczanie ");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{		
+
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+
+					}
+
+					break;
+
+				case ConsoleKey.L:
+					Console.WriteLine("\n\t\t\tObliczanie ");
+					Console.WriteLine("\n\tCzy chcesz aby obliczenia wykonały się ze śledzeniem działań ? T(Tak)/N(Nie)");
+					Console.WriteLine("\tNaciśnij odpowiedni przycisk na klawiaturze");
+					mbWybranaFunkcjonalnosc = Console.ReadKey();
+
+					if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.T)
+					{
+
+					}
+
+					else if (mbWybranaFunkcjonalnosc.Key == ConsoleKey.N)
+					{
+
+					}
+
+					break;
+
+				case ConsoleKey.X:
+
+					break;
+
+				default:
+					Console.WriteLine("\n\n\t\tBrak przypisanej funkcjonalności do naciśniętego przycisku, proszę wybrać ponownie");
+					break;
+			}
+
+
+			Console.WriteLine("\n\n\tautor programu: Michał Balcerzak, numer indeksu: 42624");
+			Console.WriteLine("\tAktualna data: {0}", DateTime.Now);
+			Console.WriteLine("\tNaciśnij dowolny klawisz");
+		}
+	}
+}
